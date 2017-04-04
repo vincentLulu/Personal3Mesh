@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <Eigen\Dense>
+
 #include "Readin.h"
 #include "Method2.h"
 #include "Export.h"
@@ -11,7 +11,7 @@ using namespace Eigen;
 int main() {
 	/***** Common functions tests *****/
 	Common DataBase;
-	map<int, Common> PointCloud;
+	map<Eigen::Vector3d, Common, cmp> PointCloud;
 	const string file("normal-ct-brain");
 	string filename;
 	for (int i = 0; i < 1; ++i) {
@@ -19,24 +19,25 @@ int main() {
 		DataBase.Readin(filename, PointCloud);
 	}
 	cout << "Total Nodes: " << PointCloud.size() << endl;
+	//Export(PointCloud);
 
 	/***** Method 1 *****/
 	Common DataBase1;
-	map<int, Common> PointCloud1;
+	map<Eigen::Vector3d, Common, cmp> PointCloud1;
 	string filename1;
-	for (int i1 = 0; i1 < 4; ++i1) {
-		filename1 = file + " " + to_string(i1) + ".jpg";
+	for (int i = 0; i < 4; ++i) {
+		filename1 = file + " " + to_string(i) + ".jpg";
 		DataBase1.Readin(filename1, PointCloud1);
 	}
 	cout << "Total Nodes: " << PointCloud1.size() << endl;
-
+	cout << "No identification is applied, the Total 'inner' element: " << Count_OutInner(PointCloud1) << endl;
 	//// Procedure of Export
-	Export(PointCloud);
+	//Export(PointCloud1);
 
 
 	/***** Method 2 which identify the surface element and innner elements *****/
 	Common DataBase2;
-	map<int, Common> PointCloud2;
+	map<Eigen::Vector3d, Common, cmp> PointCloud2;
 	string filename2;
 	for (int i = 0; i < 4; ++i) {
 		filename2 = file + " " + to_string(i) + ".jpg";
