@@ -1,12 +1,11 @@
 #ifndef  METHOD2
 #define METHOD2
 #include "Readin.h"
+#include "Export.h"
 
-typedef map<int, Common>::iterator iter;
+int Count_OutInner(map<Eigen::Vector3d, Common, cmp> PointCloud2);
 
-int Count_OutInner(map<int, Common> PointCloud2);
-
-void Identity_OutInner(map<int, Common>  &PointCloud2);
+void Identity_OutInner(map<Eigen::Vector3d, Common, cmp>  &PointCloud2);
 
 #endif // ! METHOD2
 #pragma once
