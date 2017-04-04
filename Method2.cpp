@@ -1,7 +1,7 @@
 #include "Method2.h"
 #include <iostream>
 
-int Count_OutInner(map<int, Common> PointCloud2) {
+int Count_OutInner(map<Eigen::Vector3d, Common, cmp> PointCloud2) {
 	int num = 0;
 	for (iter i = PointCloud2.begin(); i != PointCloud2.end(); ++i) {
 		if ((*i).second.Get_In_or_Out() == 0) {
@@ -12,16 +12,17 @@ int Count_OutInner(map<int, Common> PointCloud2) {
 }
 
 
-void Identity_OutInner(map<int, Common>  &PointCloud2) {
+void Identity_OutInner(map<Eigen::Vector3d, Common, cmp>  &PointCloud2) {
 	static int times = 1;
 	switch (times)
 	{
 	case 1:
 		cout << "times 1: first identify" << endl;
 		for (iter i = PointCloud2.begin(); i != PointCloud2.end(); ++i) {
-			int Front = (*i).first + 1;
-			int Back = (*i).first - 1;
-			if (PointCloud2.count(Front) == 0 || PointCloud2.count(Back) == 0) {
+			Eigen::Vector3d v(0, 0, 1);
+			Eigen::Vector3d Front = (*i).first + v;
+			Eigen::Vector3d Back = (*i).first - v;
+			if (PointCloud2.find(Front) == PointCloud2.end() || PointCloud2.find(Back) == PointCloud2.end()) {
 				(*i).second.IdentifyOutInner();
 			}
 		}
@@ -30,9 +31,10 @@ void Identity_OutInner(map<int, Common>  &PointCloud2) {
 	case 2:
 		cout << "times 2: second identify" << endl;
 		for (iter i = PointCloud2.begin(); i != PointCloud2.end(); ++i) {
-			int Front = (*i).first + 10;
-			int Back = (*i).first - 10;
-			if (PointCloud2.count(Front) == 0 || PointCloud2.count(Back) == 0) {
+			Eigen::Vector3d v(0, 1, 0);
+			Eigen::Vector3d Front = (*i).first + v;
+			Eigen::Vector3d Back = (*i).first - v;
+			if (PointCloud2.find(Front) == PointCloud2.end() || PointCloud2.find(Back) == PointCloud2.end()) {
 				(*i).second.IdentifyOutInner();
 			}
 		}
@@ -41,9 +43,10 @@ void Identity_OutInner(map<int, Common>  &PointCloud2) {
 	case 3:
 		cout << "times 3: third identify" << endl;
 		for (iter i = PointCloud2.begin(); i != PointCloud2.end(); ++i) {
-			int Front = (*i).first + 100;
-			int Back = (*i).first - 100;
-			if (PointCloud2.count(Front) == 0 || PointCloud2.count(Back) == 0) {
+			Eigen::Vector3d v(1, 0, 0);
+			Eigen::Vector3d Front = (*i).first + v;
+			Eigen::Vector3d Back = (*i).first - v;
+			if (PointCloud2.find(Front) == PointCloud2.end() || PointCloud2.find(Back) == PointCloud2.end()) {
 				(*i).second.IdentifyOutInner();
 			}
 		}
