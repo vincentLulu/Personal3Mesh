@@ -10,7 +10,7 @@ Common::Common() {
 Common::~Common() {
 }
 
-void Common::Readin(string file, map<int, Common> &target) {
+void Common::Readin(string file, map<Eigen::Vector3d, Common, cmp> &target) {
 	double queue;
 	if (file.size() > 4) {
 		queue = stod(file.substr(file.size() - 5, 2));
@@ -27,16 +27,19 @@ void Common::Readin(string file, map<int, Common> &target) {
 	cv::waitKey(600);
 	cv::destroyWindow("hah");
 
+	/*ofstream Out("testetsetsetset.obj");
+	int flag = 1;*/
+
+	Eigen::Vector3d tempVector;
 	int row = img.rows;
 	int col = img.cols;
 	Common tempCommon;
-	int tempVector;
 	cv::Scalar intensity;
 	for (int x = 0; x < row; ++x) {
 		for (int y = 0; y < col; ++y) {
 			intensity = img.at<uchar>(x, y);
 			if (intensity.val[0] > 250) {
-				tempVector = 100*x+10*y+int(queue);
+				tempVector << double(x), double(y), queue;
 				tempCommon.Assign_X_cords(double(x));
 				tempCommon.Assign_Y_cords(double(y));
 				tempCommon.Assign_Z_cords(double(queue));
@@ -44,7 +47,24 @@ void Common::Readin(string file, map<int, Common> &target) {
 				tempCommon.Assign_CVScalar(intensity);
 				tempCommon.Assign_In_or_Out(1);
 				
-				target.insert(pair<int, Common>(tempVector, tempCommon));
+				target.insert(pair<Eigen::Vector3d, Common>(tempVector, tempCommon));
+
+				/*Out << "v " << (x - 0.5) << " " << (y - 0.5) << " " << (queue - 0.5) << "\n";
+				Out << "v " << (x - 0.5) << " " << (y + 0.5) << " " << (queue - 0.5) << "\n";
+				Out << "v " << (x + 0.5) << " " << (y + 0.5) << " " << (queue - 0.5) << "\n";
+				Out << "v " << (x + 0.5) << " " << (y - 0.5) << " " << (queue - 0.5) << "\n";
+				Out << "v " << (x - 0.5) << " " << (y - 0.5) << " " << (queue + 0.5) << "\n";
+				Out << "v " << (x - 0.5) << " " << (y + 0.5) << " " << (queue + 0.5) << "\n";
+				Out << "v " << (x + 0.5) << " " << (y + 0.5) << " " << (queue + 0.5) << "\n";
+				Out << "v " << (x + 0.5) << " " << (y - 0.5) << " " << (queue + 0.5) << "\n";
+				Out << "f " << flag << " " << flag + 1 << " " << flag + 2 << " " << flag + 3 << "\n";
+				Out << "f " << flag + 4 << " " << flag + 5 << " " << flag + 6 << " " << flag + 7 << "\n";
+				Out << "f " << flag << " " << flag + 1 << " " << flag + 5 << " " << flag + 4 << "\n";
+				Out << "f " << flag + 3 << " " << flag + 2 << " " << flag + 6 << " " << flag + 7 << "\n";
+				Out << "f " << flag + 1 << " " << flag + 5 << " " << flag + 6 << " " << flag + 2 << "\n";
+				Out << "f " << flag  << " " << flag + 4 << " " << flag + 7 << " " << flag + 3 << "\n";
+				Out << flag << " " << tempVector[0] << "\n";
+				flag = flag + 1;*/
 			}
 		}
 	}
