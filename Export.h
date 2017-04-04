@@ -2,11 +2,14 @@
 #define EXPORT
 #include "Readin.h"
 
-typedef map<int, Common>::iterator iter;
+typedef map<Eigen::Vector3d, Common>::iterator iter;
 
-void Export(map<int, Common> PointCloud2);
+void Export(map<Eigen::Vector3d, Common, cmp> PointCloud2);
 
-void Export_Inner(pair<int, Common> Point, int index);
+void Export_Inner(pair<Eigen::Vector3d, Common> Point, int index);
+
+void Export_Outer(pair<Eigen::Vector3d, Common> Point, int index);
 
 #endif // !EXPORT
 #pragma once
+
