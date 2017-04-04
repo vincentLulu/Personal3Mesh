@@ -9,10 +9,18 @@
 using namespace std;
 using namespace Eigen;
 
+struct cmp {
+	bool operator()(const Eigen::Vector3d first, const Eigen::Vector3d second) const {
+		return (first[0] > second[0] ||
+			(first[0] == second[0] && first[1] > second[1]) ||
+			(first[0] == second[0] && first[1] == second[1] && first[2] > second[2]));
+	}
+};
+
 struct Common {
 	Common();
 	~Common();
-	void Readin(const string file, map<int, Common> &target);
+	void Readin(const string file, map<Eigen::Vector3d, Common, cmp> &target);
 	double Get_X_Cords();
 	double Get_Y_Cords();
 	double Get_Z_Cords();
