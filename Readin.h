@@ -27,9 +27,14 @@ struct Common {
 	double Get_Scale();
 	cv::Scalar Get_CVScalar();
 	int Get_In_or_Out();
+	Eigen::Vector3d Get_Normal();
 	void IdentifyOutInner() {
 		Assign_In_or_Out(0);
 	}
+	void IdentifyNormal(Eigen::Vector3d vector) {
+		Modify_Normal(vector);
+	}
+	
 protected:
 	void Assign_X_cords(double value);
 	void Assign_Y_cords(double value);
@@ -37,16 +42,14 @@ protected:
 	void Assign_scale(double value);
 	void Assign_CVScalar(cv::Scalar value);
 	void Assign_In_or_Out(int value);
+	void Assign_Normal();
+	void Modify_Normal(Eigen::Vector3d value);
 
 	double x_cords;
 	double y_cords;
 	double z_cords;
 	double scale;
+	Eigen::Vector3d normal;
 	cv::Scalar intensity;
 	int In_or_out;
 };
-#endif // ! READIN
-
-
-
-#pragma once
