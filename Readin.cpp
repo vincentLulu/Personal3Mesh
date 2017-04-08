@@ -46,6 +46,7 @@ void Common::Readin(string file, map<Eigen::Vector3d, Common, cmp> &target) {
 				tempCommon.Assign_scale(1);
 				tempCommon.Assign_CVScalar(intensity);
 				tempCommon.Assign_In_or_Out(1);
+				tempCommon.Assign_Normal();
 				
 				target.insert(pair<Eigen::Vector3d, Common>(tempVector, tempCommon));
 
@@ -83,13 +84,16 @@ double Common::Get_Z_Cords() {
 double Common::Get_Scale() {
 	return scale;
 }
-
 cv::Scalar Common::Get_CVScalar() {
 	return intensity;
 }
 int Common::Get_In_or_Out() {
 	return In_or_out;
 }
+Eigen::Vector3d Common::Get_Normal() {
+	return normal;
+}
+
 
 void Common::Assign_X_cords(double value) {
 	x_cords = value;
@@ -108,4 +112,11 @@ void  Common::Assign_CVScalar(cv::Scalar value) {
 }
 void Common::Assign_In_or_Out(int value) {
 	In_or_out = value;
+}
+void Common::Assign_Normal() {
+	Eigen::Vector3d temp(0, 0, 0);
+	normal = temp;
+}
+void Common::Modify_Normal(Eigen::Vector3d value) {
+	normal += value;
 }
