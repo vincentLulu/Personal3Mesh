@@ -12,7 +12,7 @@ int Count_OutInner(map<Eigen::Vector3d, Common, cmp> PointCloud2) {
 }
 
 
-void Identity_OutInner(map<Eigen::Vector3d, Common, cmp>  &PointCloud2) {
+void Identity_OutInner(map<Eigen::Vector3d, Common, cmp>  &PointCloud2, map<Eigen::Vector3d, Common, cmp>  &PointCloud_Outer) {
 	static int times = 1;
 	switch (times)
 	{
@@ -22,9 +22,25 @@ void Identity_OutInner(map<Eigen::Vector3d, Common, cmp>  &PointCloud2) {
 			Eigen::Vector3d v(0, 0, 1);
 			Eigen::Vector3d Front = (*i).first + v;
 			Eigen::Vector3d Back = (*i).first - v;
+			iter fiter = PointCloud2.find(Front);
+			iter biter = PointCloud2.find(Back); 
 			if (PointCloud2.find(Front) == PointCloud2.end() || PointCloud2.find(Back) == PointCloud2.end()) {
 				(*i).second.IdentifyOutInner();
+				//PointCloud_Outer.insert(pair<Eigen::Vector3d, Common>((*i).first, (*i).second));
 			}
+			/*if (fiter == PointCloud2.end() && biter != PointCloud2.end()) {
+				(*i).second.IdentifyOutInner();
+				Eigen::Vector3d temp(0, 0, -1);
+				(*i).second.IdentifyNormal(temp);
+			}
+			else if (fiter != PointCloud2.end() && biter == PointCloud2.end()) {
+				(*i).second.IdentifyOutInner();
+				Eigen::Vector3d temp(0, 0, 1);
+				(*i).second.IdentifyNormal(temp);
+			}
+			else if (fiter == PointCloud2.end() && biter == PointCloud2.end()) {
+				(*i).second.IdentifyOutInner();
+			}*/
 		}
 		++times;
 		break;
@@ -34,9 +50,25 @@ void Identity_OutInner(map<Eigen::Vector3d, Common, cmp>  &PointCloud2) {
 			Eigen::Vector3d v(0, 1, 0);
 			Eigen::Vector3d Front = (*i).first + v;
 			Eigen::Vector3d Back = (*i).first - v;
+			iter fiter = PointCloud2.find(Front);
+			iter biter = PointCloud2.find(Back);
 			if (PointCloud2.find(Front) == PointCloud2.end() || PointCloud2.find(Back) == PointCloud2.end()) {
 				(*i).second.IdentifyOutInner();
+				//PointCloud_Outer.insert(pair<Eigen::Vector3d, Common>((*i).first, (*i).second));
 			}
+			/*if (fiter == PointCloud2.end() && biter != PointCloud2.end()) {
+				(*i).second.IdentifyOutInner();
+				Eigen::Vector3d temp(0, -1, 0);
+				(*i).second.IdentifyNormal(temp);
+			}
+			else if (fiter != PointCloud2.end() && biter == PointCloud2.end()) {
+				(*i).second.IdentifyOutInner();
+				Eigen::Vector3d temp(0, 1, 0);
+				(*i).second.IdentifyNormal(temp);
+			}
+			else if (fiter == PointCloud2.end() && biter == PointCloud2.end()) {
+				(*i).second.IdentifyOutInner();
+			}*/
 		}
 		++times;
 		break;
@@ -46,9 +78,25 @@ void Identity_OutInner(map<Eigen::Vector3d, Common, cmp>  &PointCloud2) {
 			Eigen::Vector3d v(1, 0, 0);
 			Eigen::Vector3d Front = (*i).first + v;
 			Eigen::Vector3d Back = (*i).first - v;
+			iter fiter = PointCloud2.find(Front);
+			iter biter = PointCloud2.find(Back);
 			if (PointCloud2.find(Front) == PointCloud2.end() || PointCloud2.find(Back) == PointCloud2.end()) {
 				(*i).second.IdentifyOutInner();
+				//PointCloud_Outer.insert(pair<Eigen::Vector3d, Common>((*i).first, (*i).second));
 			}
+			/*if (fiter == PointCloud2.end() && biter != PointCloud2.end()) {
+				(*i).second.IdentifyOutInner();
+				Eigen::Vector3d temp(-1, 0, 0);
+				(*i).second.IdentifyNormal(temp);
+			}
+			else if (fiter != PointCloud2.end() && biter == PointCloud2.end()) {
+				(*i).second.IdentifyOutInner();
+				Eigen::Vector3d temp(1, 0, 0);
+				(*i).second.IdentifyNormal(temp);
+			}
+			else if (fiter == PointCloud2.end() && biter == PointCloud2.end()) {
+				(*i).second.IdentifyOutInner();
+			}*/
 		}
 		++times;
 		break;
